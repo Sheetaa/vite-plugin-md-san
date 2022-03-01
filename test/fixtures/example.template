@@ -1,0 +1,20 @@
+import {Component} from 'san';
+import CodePreview from '<%=componentRequest=%>';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = `
+        <section class="code-box" id="<%=id=%>">
+            <section class="code-box-demo">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+        </section>
+    `;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+}

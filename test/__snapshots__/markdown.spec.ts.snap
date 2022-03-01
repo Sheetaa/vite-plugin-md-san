@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transform component 1`] = `
+"import {Component} from 'san';
+import PreviewBlock1 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock1.vpms';
+import PreviewBlock2 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock2.vpms';
+export default class ComponentDoc extends Component {
+    static template = \`<section class=\\"markdown\\"><h1 id=\\"export-md-as-san-component\\">export md as san component</h1>
+<preview-block-1></preview-block-1><preview-block-2></preview-block-2></section>\`;
+    static components = {
+        'preview-block-1': PreviewBlock1,
+		'preview-block-2': PreviewBlock2
+    };
+};
+"
+`;
+
+exports[`transform component 2`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"1\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-box-meta\\">
+                <h4>info text</h4>
+                {{ caption | raw}}
+            </section>
+            <section>
+                <h4>code</h4>
+                <div class=\\"highlight\\">
+                    <pre>
+                        <code class=\\"language-san\\">
+                            {{ code | raw }}
+                        </code>
+                    </pre>
+                </div>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            code: \`import {Component} from 'san';
+
+export default class ComponentDemo extends Component {
+    static template = &#96;
+        &lt;div>
+            &lt;button type=\\"button\\">First Button&lt;/button>
+        &lt;/div>
+    &#96;;
+}\`,
+            caption: \`first\`
+        }
+    }
+}
+"
+`;
+
+exports[`transform component 3`] = `
+"import {Component} from 'san';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">First Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template 1`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"1\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+}
+"
+`;
+
+exports[`transform component: custom preview template 2`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component2.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"2\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+}
+"
+`;
+
+exports[`transform html 1`] = `
+"<h1 id=\\"title\\">title</h1>
+<p>123
+456</p>
+<pre><code class=\\"language-san\\">import {Component} from 'san';
+
+export default SanDemo extends Component {
+    static template = &#96;&lt;div>&lt;/div>&#96;;
+    static components = {};
+    initData () {
+        return {
+            foo: 'bar'
+        };
+    }
+}</code></pre>"
+`;
