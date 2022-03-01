@@ -13,7 +13,6 @@ const debug = require('debug')('vite-plugin-md-san:index');
 
 export interface PluginOptions {
     export?: 'html' | 'component' | 'raw' | string;
-    // todo
     template?: string;
     // todo
     highlight?: Record<string, unknown>;
