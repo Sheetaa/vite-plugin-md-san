@@ -23,10 +23,23 @@ interface TemplateData {
     code: string;
     componentRequest: string;
     caption?: string;
+    sourceList: string;
+}
+
+interface Alias {
+    find: RegExp | string;
+    replacement: string;
+}
+
+interface Source {
+    filename: string;
+    type: string;
+    code: string;
 }
 
 interface CompileOptions {
     filepath: string;
+    alias?: Alias[];
     exportType?: ExportType;
     template?: string;
 }
@@ -36,6 +49,7 @@ let templateContent = fs.readFileSync(defaultTemplate, {encoding: 'utf8'});
 let file: string;
 let exportType: ExportType;
 let index: number;
+let alias: Alias[];
 const components: ComponentSnippets[] = [];
 const previewBlocks: Map<string, string> = new Map();
 
@@ -44,6 +58,7 @@ function init(options: CompileOptions) {
     exportType = options.exportType || 'html';
     templateContent = options.template || templateContent;
     index = 1;
+    alias = options.alias || [];
     components.splice(0, components.length);
     previewBlocks.clear();
 }
@@ -60,6 +75,27 @@ const renderer = {
             && codeLang.lang === 'san'
             && codeLang.export === 'preview'
         ) {
+
+            const cssImports = codeEsc.match(/('|")[^('|")]+\.(css|less|scss)+('|")/g) || [];
+            const sourceList: Source[] = [{filename: 'index.ts', code: codeEsc, type: 'ts'}];
+            const mdPath = file.replace(/\/[^\/]+\.md$/, '');
+
+            cssImports.forEach(css => {
+                const fileName = css.replace(/('|")/g, '');
+                const absolutePath = alias.reduce(
+                    (prev: string, curr: Alias) => prev.replace(curr.find, curr.replacement),
+                    fileName);
+                let sourceCode = '';
+                try {
+                    sourceCode = fs.readFileSync(path.resolve(mdPath, absolutePath), {encoding: 'utf8'});
+                } catch (err) {};
+                sourceList.push({
+                    filename: fileName,
+                    code: sourceCode,
+                    type: 'css'
+                });
+            });
+
             const entryTag = `preview-block-${index}`;
             const entryVar = `PreviewBlock${index}`;
             const mapKeyEntry = `${entryVar}.vpms`;
@@ -76,7 +112,8 @@ const renderer = {
                 id: index,
                 code: codeEsc,
                 componentRequest,
-                caption: codeLang.caption
+                caption: codeLang.caption,
+                sourceList: JSON.stringify(sourceList)
             }));
             previewBlocks.set(mapKeyComponent, code);
             index++;

@@ -1,0 +1,35 @@
+import {Component} from 'san';
+import CodePreview from '<%=componentRequest=%>';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = `
+        <section class="code-box" id="<%=id=%>">
+            <section class="code-box-demo">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class="code-preview-wrapper">
+                <section
+                    class="code-preview"
+                    s-for="source in sourceList"
+                >
+                    <h3>{{source.filename}}</h3>
+                    <code s-html="source.code"></code>
+                </section>
+            </section>
+        </section>
+    `;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            sourceList: <%=sourceList=%>
+        };
+    }
+}

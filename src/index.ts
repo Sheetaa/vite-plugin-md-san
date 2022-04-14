@@ -11,12 +11,19 @@ import {parseRequest} from './query';
 
 const debug = require('debug')('vite-plugin-md-san:index');
 
-export interface PluginOptions {
+interface PluginOptions {
     export?: 'html' | 'component' | 'raw' | string;
     template?: string;
     // todo
     highlight?: Record<string, unknown>;
 }
+
+export type TransformOption = PluginOptions & {config: ResolvedConfig};
+
+type Transform = (id: string, raw: string) => {
+    transformed: string;
+    attachment?: Map<string, string>;
+};
 
 let cachedPreviewBlocks: Map<string, Map<string, string>> = new Map();
 
@@ -24,7 +31,7 @@ export default function VitePluginMarkdownSan(options: PluginOptions): Plugin {
 
     const filter = createFilter(/\.md\??/);
     const previewFilter = createFilter(/\.vpms$/);
-    const transform = createTransform(options);
+    let transform: Transform;
 
     let config: ResolvedConfig;
 
@@ -33,6 +40,7 @@ export default function VitePluginMarkdownSan(options: PluginOptions): Plugin {
         enforce: 'pre',
         configResolved(resolvedConfig) {
             config = resolvedConfig
+            transform = createTransform({config: resolvedConfig, ...options})
         },
         // first: resolve
         resolveId(source) {
