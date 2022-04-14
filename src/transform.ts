@@ -5,9 +5,9 @@
 
 import {parseRequest} from './query';
 import {compile} from './markdown';
-import {PluginOptions} from './index';
+import {TransformOption} from './index';
 
-export function createTransform(options: PluginOptions) {
+export function createTransform(options: TransformOption) {
 
     return function (id: string, raw: string) {
         const {filepath, query} = parseRequest(id);
@@ -15,10 +15,13 @@ export function createTransform(options: PluginOptions) {
             export: 'component'
         }, options, query);
 
+        const alias = options.config.resolve.alias || [];
+
         switch (realOptions.export) {
             case 'html':
                 const {html} = compile(raw, {
                     filepath,
+                    alias,
                     exportType: 'html'
                 });
                 return {
@@ -31,6 +34,7 @@ export function createTransform(options: PluginOptions) {
                 } = compile(raw, {
                     filepath,
                     exportType: 'component',
+                    alias,
                     template: realOptions.template
                 });
                 return {
