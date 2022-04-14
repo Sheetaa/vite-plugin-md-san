@@ -113,7 +113,7 @@ const renderer = {
                 code: codeEsc,
                 componentRequest,
                 caption: codeLang.caption,
-                sourceList: JSON.stringify(sourceList).replace(/\\/g, '\\\\')
+                sourceList: JSON.stringify(sourceList)
             }));
             previewBlocks.set(mapKeyComponent, code);
             index++;

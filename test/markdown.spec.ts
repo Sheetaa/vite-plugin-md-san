@@ -85,7 +85,7 @@ export default SanDemo extends Component {
         const relativePath = '../demo/src/markdown/san-include-preview.md';
         let filepath = path.resolve(__dirname, relativePath);
         const md = fs.readFileSync(filepath, {encoding: 'utf-8'});
-        // filepath = path.join('/home/work/project', relativePath);
+        filepath = path.join('/home/work/project', relativePath);
 
         const customTemplatePath = path.resolve(__dirname, 'fixtures/multi-file.template');
         const customTemplate = fs.readFileSync(customTemplatePath, {encoding: 'utf-8'});
