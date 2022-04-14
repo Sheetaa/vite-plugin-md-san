@@ -4,12 +4,14 @@ exports[`transform component 1`] = `
 "import {Component} from 'san';
 import PreviewBlock1 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock1.vpms';
 import PreviewBlock2 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock2.vpms';
+import PreviewBlock3 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock3.vpms';
 export default class ComponentDoc extends Component {
     static template = \`<section class=\\"markdown\\"><h1 id=\\"export-md-as-san-component\\">export md as san component</h1>
-<preview-block-1></preview-block-1><preview-block-2></preview-block-2></section>\`;
+<preview-block-1></preview-block-1><preview-block-2></preview-block-2><preview-block-3></preview-block-3></section>\`;
     static components = {
         'preview-block-1': PreviewBlock1,
-		'preview-block-2': PreviewBlock2
+		'preview-block-2': PreviewBlock2,
+		'preview-block-3': PreviewBlock3
     };
 };
 "
@@ -124,6 +126,123 @@ export default class PreviewBlock extends Component {
     static components = {
         'code-preview': CodePreview
     };
+}
+"
+`;
+
+exports[`transform component: custom preview template with more source 1`] = `
+"import {Component} from 'san';
+import CodePreview from '/Users/xujiangping/github/vite-plugin-md-san/demo/src/markdown/san-include-preview.md.Component1.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"1\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-preview-wrapper\\">
+                <section
+                    class=\\"code-preview\\"
+                    s-for=\\"source in sourceList\\"
+                >
+                    <h3>{{source.filename}}</h3>
+                    <code s-html=\\"source.code\\"></code>
+                </section>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            sourceList: JSON.parse(\`[{\\"filename\\":\\"index.ts\\",\\"code\\":\\"import {Component} from 'san';\\\\\\\\n\\\\\\\\nexport default class ComponentDemo extends Component {\\\\\\\\n    static template = &#96;\\\\\\\\n        &lt;div>\\\\\\\\n            &lt;button type=\\\\\\\\\\"button\\\\\\\\\\">First Button&lt;/button>\\\\\\\\n        &lt;/div>\\\\\\\\n    &#96;;\\\\\\\\n}\\",\\"type\\":\\"ts\\"}]\`)
+        };
+    }
+}
+"
+`;
+
+exports[`transform component: custom preview template with more source 2`] = `
+"import {Component} from 'san';
+import CodePreview from '/Users/xujiangping/github/vite-plugin-md-san/demo/src/markdown/san-include-preview.md.Component2.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"2\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-preview-wrapper\\">
+                <section
+                    class=\\"code-preview\\"
+                    s-for=\\"source in sourceList\\"
+                >
+                    <h3>{{source.filename}}</h3>
+                    <code s-html=\\"source.code\\"></code>
+                </section>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            sourceList: JSON.parse(\`[{\\"filename\\":\\"index.ts\\",\\"code\\":\\"import {Component} from 'san';\\\\\\\\n\\\\\\\\nexport default class ComponentDemo extends Component {\\\\\\\\n    static template = &#96;\\\\\\\\n        &lt;div>\\\\\\\\n            &lt;button type=\\\\\\\\\\"button\\\\\\\\\\">Second Button&lt;/button>\\\\\\\\n        &lt;/div>\\\\\\\\n    &#96;;\\\\\\\\n}\\",\\"type\\":\\"ts\\"}]\`)
+        };
+    }
+}
+"
+`;
+
+exports[`transform component: custom preview template with more source 3`] = `
+"import {Component} from 'san';
+import CodePreview from '/Users/xujiangping/github/vite-plugin-md-san/demo/src/markdown/san-include-preview.md.Component3.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"3\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-preview-wrapper\\">
+                <section
+                    class=\\"code-preview\\"
+                    s-for=\\"source in sourceList\\"
+                >
+                    <h3>{{source.filename}}</h3>
+                    <code s-html=\\"source.code\\"></code>
+                </section>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            sourceList: JSON.parse(\`[{\\"filename\\":\\"index.ts\\",\\"code\\":\\"import {Component} from 'san';\\\\\\\\nimport styles from '../index.module.less';\\\\\\\\n\\\\\\\\nexport default class ComponentDemo extends Component {\\\\\\\\n    static template = &#96;\\\\\\\\n        &lt;div class=\\\\\\\\\\"\${styles.content}\\\\\\\\\\">\\\\\\\\n            &lt;button type=\\\\\\\\\\"button\\\\\\\\\\">Third Button&lt;/button>\\\\\\\\n        &lt;/div>\\\\\\\\n    &#96;;\\\\\\\\n}\\",\\"type\\":\\"ts\\"},{\\"filename\\":\\"../index.module.less\\",\\"code\\":\\".content {\\\\\\\\n    margin-left: 50px;\\\\\\\\n    background-color: lightgray;\\\\\\\\n}\\\\\\\\n\\",\\"type\\":\\"css\\"}]\`)
+        };
+    }
 }
 "
 `;

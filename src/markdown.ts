@@ -39,7 +39,7 @@ interface Source {
 
 interface CompileOptions {
     filepath: string;
-    alias: Alias[];
+    alias?: Alias[];
     exportType?: ExportType;
     template?: string;
 }
@@ -58,7 +58,7 @@ function init(options: CompileOptions) {
     exportType = options.exportType || 'html';
     templateContent = options.template || templateContent;
     index = 1;
-    alias = options.alias;
+    alias = options.alias || [];
     components.splice(0, components.length);
     previewBlocks.clear();
 }
@@ -78,15 +78,20 @@ const renderer = {
 
             const cssImports = codeEsc.match(/('|")[^('|")]+\.(css|less|scss)+('|")/g) || [];
             const sourceList: Source[] = [{filename: 'index.ts', code: codeEsc, type: 'ts'}];
+            const mdPath = file.replace(/\/[^\/]+\.md$/, '');
 
             cssImports.forEach(css => {
                 const fileName = css.replace(/('|")/g, '');
                 const absolutePath = alias.reduce(
                     (prev: string, curr: Alias) => prev.replace(curr.find, curr.replacement),
                     fileName);
+                let sourceCode = '';
+                try {
+                    sourceCode = fs.readFileSync(path.resolve(mdPath, absolutePath), {encoding: 'utf8'});
+                } catch (err) {};
                 sourceList.push({
                     filename: fileName,
-                    code: fs.readFileSync(absolutePath, {encoding: 'utf8'}),
+                    code: sourceCode,
                     type: 'css'
                 });
             });

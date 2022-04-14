@@ -23,3 +23,17 @@ export default class ComponentDemo extends Component {
     `;
 }
 ```
+
+
+```san export=preview caption=third
+import {Component} from 'san';
+import styles from '../index.module.less';
+
+export default class ComponentDemo extends Component {
+    static template = `
+        <div class="${styles.content}">
+            <button type="button">Third Button</button>
+        </div>
+    `;
+}
+```

@@ -55,7 +55,9 @@ export default SanDemo extends Component {
             'PreviewBlock1.vpms',
             'Component1.vpms',
             'PreviewBlock2.vpms',
-            'Component2.vpms'
+            'Component2.vpms',
+            'PreviewBlock3.vpms',
+            'Component3.vpms'
         ]);
         expect(previewBlocks?.get('PreviewBlock1.vpms')).toMatchSnapshot();
         expect(previewBlocks?.get('Component1.vpms')).toMatchSnapshot();
@@ -77,5 +79,25 @@ export default SanDemo extends Component {
         });
         expect(previewBlocks?.get('PreviewBlock1.vpms')).toMatchSnapshot();
         expect(previewBlocks?.get('PreviewBlock2.vpms')).toMatchSnapshot();
+    });
+
+    test('component: custom preview template with more source', () => {
+        const relativePath = '../demo/src/markdown/san-include-preview.md';
+        let filepath = path.resolve(__dirname, relativePath);
+        const md = fs.readFileSync(filepath, {encoding: 'utf-8'});
+        // filepath = path.join('/home/work/project', relativePath);
+
+        const customTemplatePath = path.resolve(__dirname, 'fixtures/multi-file.template');
+        const customTemplate = fs.readFileSync(customTemplatePath, {encoding: 'utf-8'});
+
+        const {previewBlocks} = compile(md, {
+            filepath,
+            exportType: 'component',
+            alias: [],
+            template: customTemplate
+        });
+        expect(previewBlocks?.get('PreviewBlock1.vpms')).toMatchSnapshot();
+        expect(previewBlocks?.get('PreviewBlock2.vpms')).toMatchSnapshot();
+        expect(previewBlocks?.get('PreviewBlock3.vpms')).toMatchSnapshot();
     });
 });
