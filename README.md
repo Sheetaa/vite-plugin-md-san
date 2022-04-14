@@ -15,14 +15,22 @@ npm install vite-plugin-md-san
 import {defineConfig} from 'vite'
 import mdSan from 'vite-plugin-md-san'
 
+const template = fs.readFileSync(
+    path.resolve(__dirname, 'xxx/preview.template'),
+    {encoding: 'utf-8'}
+);
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: path.resolve(process.cwd(), 'demo'),
-  plugins: [mdSan({})]
-})
+    plugins: [
+        mdSan({
+            export: 'component', // 'html' | 'component' | 'raw'
+            template
+        })
+    ]
+});
 ```
 
-## Thanks
-Inspired By:
+## Inspired By
 - [vite-plugin-md](https://github.com/antfu/vite-plugin-md)
 - [vite-plugin-vuedoc](https://github.com/JasKang/vite-plugin-vuedoc)
