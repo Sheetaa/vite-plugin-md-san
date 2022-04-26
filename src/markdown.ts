@@ -24,6 +24,7 @@ interface TemplateData {
     componentRequest: string;
     caption?: string;
     sourceList: string;
+    metadata: string;
 }
 
 interface Alias {
@@ -113,7 +114,8 @@ const renderer = {
                 code: codeEsc,
                 componentRequest,
                 caption: codeLang.caption,
-                sourceList: JSON.stringify(sourceList)
+                sourceList: JSON.stringify(sourceList),
+                metadata: JSON.stringify(codeLang)
             }));
             previewBlocks.set(mapKeyComponent, code);
             index++;
