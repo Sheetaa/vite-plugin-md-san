@@ -51,8 +51,8 @@ let file: string;
 let exportType: ExportType;
 let index: number;
 let alias: Alias[];
+let previewBlocks: Map<string, string>;
 const components: ComponentSnippets[] = [];
-const previewBlocks: Map<string, string> = new Map();
 
 function init(options: CompileOptions) {
     file = options.filepath;
@@ -61,7 +61,7 @@ function init(options: CompileOptions) {
     index = 1;
     alias = options.alias || [];
     components.splice(0, components.length);
-    previewBlocks.clear();
+    previewBlocks = new Map();
 }
 
 const renderer = {

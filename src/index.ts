@@ -53,30 +53,33 @@ export default function VitePluginMarkdownSan(options: PluginOptions): Plugin {
         // second: transform
         transform(raw, id) {
             // filter file ending with .md
+            // example: /xxx/site/components/Tag/example.md
             if (!filter(id) || previewFilter(id)) {
                 return;
             }
-
-            const {filename} = parseRequest(id);
 
             const {
                 transformed,
                 attachment
             } = transform(id, raw);
             if (attachment && attachment.size) {
-                cachedPreviewBlocks.set(filename, attachment);
+                cachedPreviewBlocks.set(id, attachment);
             }
             return transformed;
         },
         // third: load
         load(id) {
+            // example: /xxx/site/components/Tag/example.md.PreviewBlock1.vpms
             if (previewFilter(id)) {
-                const filename = id.split('/').pop();
+                const idArray = id.split('/');
+                const filename = idArray.pop();
                 const matched = filename?.match(/([\w-]+\.md)\.([\w-]+\.vpms)/);
                 if (matched?.length === 3) {
                     const mdFilename = matched[1];
+                    idArray.push(mdFilename);
+                    const originId = idArray.join('/');
                     const previewBlockName = matched[2];
-                    return cachedPreviewBlocks.get(mdFilename)?.get(previewBlockName);
+                    return cachedPreviewBlocks.get(originId)?.get(previewBlockName);
                 }
             }
         },
