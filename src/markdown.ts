@@ -25,6 +25,7 @@ interface TemplateData {
     caption?: string;
     sourceList: string;
     metadata: string;
+    filepath: string
 }
 
 interface Alias {
@@ -42,11 +43,11 @@ interface CompileOptions {
     filepath: string;
     alias?: Alias[];
     exportType?: ExportType;
-    template?: string;
+    template?: string | Function;
 }
 
 const defaultTemplate = path.join(__dirname, './theme/default.template');
-let templateContent = fs.readFileSync(defaultTemplate, {encoding: 'utf8'});
+let templateContent: string | Function = fs.readFileSync(defaultTemplate, {encoding: 'utf8'});
 let file: string;
 let exportType: ExportType;
 let index: number;
@@ -112,6 +113,7 @@ const renderer = {
             previewBlocks.set(mapKeyEntry, getTemplate({
                 id: index,
                 code: codeEsc,
+                filepath: file,
                 componentRequest,
                 caption: codeLang.caption,
                 sourceList: JSON.stringify(sourceList),
@@ -156,7 +158,10 @@ export default class ComponentDoc extends Component {
 }
 
 function getTemplate(data: TemplateData) {
-    let template = templateContent;
+    let template: any = templateContent;
+    if (typeof template === 'function') {
+        template = template(data);
+    }
     let key: keyof TemplateData;
     for (key in data) {
         const value = ('' + data[key]) ?? '';

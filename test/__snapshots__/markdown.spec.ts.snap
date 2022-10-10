@@ -130,6 +130,54 @@ export default class PreviewBlock extends Component {
 "
 `;
 
+exports[`transform component: custom preview template function 1`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"1\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+}
+"
+`;
+
+exports[`transform component: custom preview template function 2`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component2.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"2\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+}
+"
+`;
+
 exports[`transform component: custom preview template with more source 1`] = `
 "import {Component} from 'san';
 import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1.vpms';
