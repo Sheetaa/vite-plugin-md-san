@@ -2,16 +2,16 @@
 
 exports[`transform component 1`] = `
 "import {Component} from 'san';
-import PreviewBlock1 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock1.vpms';
-import PreviewBlock2 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock2.vpms';
-import PreviewBlock3 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock3.vpms';
+import PreviewBlock12309c0619f49544d2741d1d2133005a2 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock12309c0619f49544d2741d1d2133005a2.vpms';
+import PreviewBlock29f724914552f8c53bfb8c180700a4fd8 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock29f724914552f8c53bfb8c180700a4fd8.vpms';
+import PreviewBlock35e6af89881443424b88d3d94bec8e7a2 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock35e6af89881443424b88d3d94bec8e7a2.vpms';
 export default class ComponentDoc extends Component {
     static template = \`<section class=\\"markdown\\"><h1 id=\\"export-md-as-san-component\\">export md as san component</h1>
-<preview-block-1></preview-block-1><preview-block-2></preview-block-2><preview-block-3></preview-block-3></section>\`;
+<preview-block-12309c0619f49544d2741d1d2133005a2></preview-block-12309c0619f49544d2741d1d2133005a2><preview-block-29f724914552f8c53bfb8c180700a4fd8></preview-block-29f724914552f8c53bfb8c180700a4fd8><preview-block-35e6af89881443424b88d3d94bec8e7a2></preview-block-35e6af89881443424b88d3d94bec8e7a2></section>\`;
     static components = {
-        'preview-block-1': PreviewBlock1,
-		'preview-block-2': PreviewBlock2,
-		'preview-block-3': PreviewBlock3
+        'preview-block-12309c0619f49544d2741d1d2133005a2': PreviewBlock12309c0619f49544d2741d1d2133005a2,
+		'preview-block-29f724914552f8c53bfb8c180700a4fd8': PreviewBlock29f724914552f8c53bfb8c180700a4fd8,
+		'preview-block-35e6af89881443424b88d3d94bec8e7a2': PreviewBlock35e6af89881443424b88d3d94bec8e7a2
     };
 };
 "
@@ -19,14 +19,14 @@ export default class ComponentDoc extends Component {
 
 exports[`transform component 2`] = `
 "import {Component} from 'san';
-import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1.vpms';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component12309c0619f49544d2741d1d2133005a2.vpms';
 
 export default class PreviewBlock extends Component {
 
     static trimWhitespace = 'all';
 
     static template = \`
-        <section class=\\"code-box\\" id=\\"1\\">
+        <section class=\\"code-box\\" id=\\"12309c0619f49544d2741d1d2133005a2\\">
             <section class=\\"code-box-demo\\">
                 <h4>code preview</h4>
                 <code-preview></code-preview>
@@ -82,16 +82,148 @@ export default class ComponentDemo extends Component {
 }"
 `;
 
-exports[`transform component: custom preview template 1`] = `
+exports[`transform component 4`] = `
 "import {Component} from 'san';
-import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1.vpms';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component29f724914552f8c53bfb8c180700a4fd8.vpms';
 
 export default class PreviewBlock extends Component {
 
     static trimWhitespace = 'all';
 
     static template = \`
-        <section class=\\"code-box\\" id=\\"1\\">
+        <section class=\\"code-box\\" id=\\"29f724914552f8c53bfb8c180700a4fd8\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-box-meta\\">
+                <h4>info text</h4>
+                {{ caption | raw}}
+            </section>
+            <section>
+                <h4>code</h4>
+                <div class=\\"highlight\\">
+                    <pre>
+                        <code class=\\"language-san\\">
+                            {{ code | raw }}
+                        </code>
+                    </pre>
+                </div>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            code: \`import {Component} from 'san';
+
+export default class ComponentDemo extends Component {
+    static template = &#96;
+        &lt;div>
+            &lt;button type=\\"button\\">Second Button&lt;/button>
+        &lt;/div>
+    &#96;;
+}\`,
+            caption: \`second\`
+        }
+    }
+}
+"
+`;
+
+exports[`transform component 5`] = `
+"import {Component} from 'san';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">Second Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component 6`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component35e6af89881443424b88d3d94bec8e7a2.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"35e6af89881443424b88d3d94bec8e7a2\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-box-meta\\">
+                <h4>info text</h4>
+                {{ caption | raw}}
+            </section>
+            <section>
+                <h4>code</h4>
+                <div class=\\"highlight\\">
+                    <pre>
+                        <code class=\\"language-san\\">
+                            {{ code | raw }}
+                        </code>
+                    </pre>
+                </div>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            code: \`import {Component} from 'san';
+import styles from '../index.module.less';
+
+export default class ComponentDemo extends Component {
+    static template = &#96;
+        &lt;div class=\\"\${styles.content}\\">
+            &lt;button type=\\"button\\">Third Button&lt;/button>
+        &lt;/div>
+    &#96;;
+}\`,
+            caption: \`third\`
+        }
+    }
+}
+"
+`;
+
+exports[`transform component 7`] = `
+"import {Component} from 'san';
+import styles from '../index.module.less';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div class=\\"\${styles.content}\\">
+            <button type=\\"button\\">Third Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template 1`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component12309c0619f49544d2741d1d2133005a2.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"12309c0619f49544d2741d1d2133005a2\\">
             <section class=\\"code-box-demo\\">
                 <h4>code preview</h4>
                 <code-preview></code-preview>
@@ -108,14 +240,26 @@ export default class PreviewBlock extends Component {
 
 exports[`transform component: custom preview template 2`] = `
 "import {Component} from 'san';
-import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component2.vpms';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">First Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template 3`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component29f724914552f8c53bfb8c180700a4fd8.vpms';
 
 export default class PreviewBlock extends Component {
 
     static trimWhitespace = 'all';
 
     static template = \`
-        <section class=\\"code-box\\" id=\\"2\\">
+        <section class=\\"code-box\\" id=\\"29f724914552f8c53bfb8c180700a4fd8\\">
             <section class=\\"code-box-demo\\">
                 <h4>code preview</h4>
                 <code-preview></code-preview>
@@ -130,16 +274,65 @@ export default class PreviewBlock extends Component {
 "
 `;
 
-exports[`transform component: custom preview template function 1`] = `
+exports[`transform component: custom preview template 4`] = `
 "import {Component} from 'san';
-import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1.vpms';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">Second Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template 5`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component35e6af89881443424b88d3d94bec8e7a2.vpms';
 
 export default class PreviewBlock extends Component {
 
     static trimWhitespace = 'all';
 
     static template = \`
-        <section class=\\"code-box\\" id=\\"1\\">
+        <section class=\\"code-box\\" id=\\"35e6af89881443424b88d3d94bec8e7a2\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+}
+"
+`;
+
+exports[`transform component: custom preview template 6`] = `
+"import {Component} from 'san';
+import styles from '../index.module.less';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div class=\\"\${styles.content}\\">
+            <button type=\\"button\\">Third Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template function 1`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component12309c0619f49544d2741d1d2133005a2.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"12309c0619f49544d2741d1d2133005a2\\">
             <section class=\\"code-box-demo\\">
                 <h4>code preview</h4>
                 <code-preview></code-preview>
@@ -156,14 +349,26 @@ export default class PreviewBlock extends Component {
 
 exports[`transform component: custom preview template function 2`] = `
 "import {Component} from 'san';
-import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component2.vpms';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">First Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template function 3`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component29f724914552f8c53bfb8c180700a4fd8.vpms';
 
 export default class PreviewBlock extends Component {
 
     static trimWhitespace = 'all';
 
     static template = \`
-        <section class=\\"code-box\\" id=\\"2\\">
+        <section class=\\"code-box\\" id=\\"29f724914552f8c53bfb8c180700a4fd8\\">
             <section class=\\"code-box-demo\\">
                 <h4>code preview</h4>
                 <code-preview></code-preview>
@@ -178,16 +383,65 @@ export default class PreviewBlock extends Component {
 "
 `;
 
-exports[`transform component: custom preview template with more source 1`] = `
+exports[`transform component: custom preview template function 4`] = `
 "import {Component} from 'san';
-import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1.vpms';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">Second Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template function 5`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component35e6af89881443424b88d3d94bec8e7a2.vpms';
 
 export default class PreviewBlock extends Component {
 
     static trimWhitespace = 'all';
 
     static template = \`
-        <section class=\\"code-box\\" id=\\"1\\">
+        <section class=\\"code-box\\" id=\\"35e6af89881443424b88d3d94bec8e7a2\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+}
+"
+`;
+
+exports[`transform component: custom preview template function 6`] = `
+"import {Component} from 'san';
+import styles from '../index.module.less';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div class=\\"\${styles.content}\\">
+            <button type=\\"button\\">Third Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template with more source 1`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component12309c0619f49544d2741d1d2133005a2.vpms';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"12309c0619f49544d2741d1d2133005a2\\">
             <section class=\\"code-box-demo\\">
                 <h4>code preview</h4>
                 <code-preview></code-preview>
@@ -219,14 +473,26 @@ export default class PreviewBlock extends Component {
 
 exports[`transform component: custom preview template with more source 2`] = `
 "import {Component} from 'san';
-import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component2.vpms';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">First Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template with more source 3`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component29f724914552f8c53bfb8c180700a4fd8.vpms';
 
 export default class PreviewBlock extends Component {
 
     static trimWhitespace = 'all';
 
     static template = \`
-        <section class=\\"code-box\\" id=\\"2\\">
+        <section class=\\"code-box\\" id=\\"29f724914552f8c53bfb8c180700a4fd8\\">
             <section class=\\"code-box-demo\\">
                 <h4>code preview</h4>
                 <code-preview></code-preview>
@@ -256,16 +522,28 @@ export default class PreviewBlock extends Component {
 "
 `;
 
-exports[`transform component: custom preview template with more source 3`] = `
+exports[`transform component: custom preview template with more source 4`] = `
 "import {Component} from 'san';
-import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component3.vpms';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">Second Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: custom preview template with more source 5`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component35e6af89881443424b88d3d94bec8e7a2.vpms';
 
 export default class PreviewBlock extends Component {
 
     static trimWhitespace = 'all';
 
     static template = \`
-        <section class=\\"code-box\\" id=\\"3\\">
+        <section class=\\"code-box\\" id=\\"35e6af89881443424b88d3d94bec8e7a2\\">
             <section class=\\"code-box-demo\\">
                 <h4>code preview</h4>
                 <code-preview></code-preview>
@@ -293,6 +571,19 @@ export default class PreviewBlock extends Component {
     }
 }
 "
+`;
+
+exports[`transform component: custom preview template with more source 6`] = `
+"import {Component} from 'san';
+import styles from '../index.module.less';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div class=\\"\${styles.content}\\">
+            <button type=\\"button\\">Third Button</button>
+        </div>
+    \`;
+}"
 `;
 
 exports[`transform html 1`] = `
