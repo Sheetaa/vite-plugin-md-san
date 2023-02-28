@@ -5,6 +5,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import {marked} from 'marked';
 import {parseCodeLang} from './query';
 
@@ -65,6 +66,8 @@ function init(options: CompileOptions) {
     previewBlocks = new Map();
 }
 
+const md5 = (content: string) => crypto.createHash('md5').update(content).digest('hex').substring(0, 7);
+
 const renderer = {
     code(code: string, infostring: string) {
         const codeEsc = code
@@ -97,11 +100,12 @@ const renderer = {
                     type: 'css'
                 });
             });
-
-            const entryTag = `preview-block-${index}`;
-            const entryVar = `PreviewBlock${index}`;
+            const codeMd5 = md5(code);
+            const id = `${index}_${codeMd5}`;
+            const entryTag = `preview-block-${index}-${codeMd5}`;
+            const entryVar = `PreviewBlock${id}`;
             const mapKeyEntry = `${entryVar}.vpms`;
-            const mapKeyComponent = `Component${index}.vpms`;
+            const mapKeyComponent = `Component${id}.vpms`;
             // /src/markdown/html.md.PreviewBlock1.vpms
             const entryRequest = `${file}.${mapKeyEntry}`;
             // /src/markdown/html.md.Component1.vpms
@@ -111,7 +115,7 @@ const renderer = {
                 component: `'${entryTag}': ${entryVar}`
             });
             previewBlocks.set(mapKeyEntry, getTemplate({
-                id: index,
+                id,
                 code: codeEsc,
                 filepath: file,
                 componentRequest,

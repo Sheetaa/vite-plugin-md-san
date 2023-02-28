@@ -51,16 +51,10 @@ export default SanDemo extends Component {
         expect(entryComponent).toMatchSnapshot();
 
         const keys = Array.from(previewBlocks || []).map(item => item[0]);
-        expect(keys).toStrictEqual([
-            'PreviewBlock1.vpms',
-            'Component1.vpms',
-            'PreviewBlock2.vpms',
-            'Component2.vpms',
-            'PreviewBlock3.vpms',
-            'Component3.vpms'
-        ]);
-        expect(previewBlocks?.get('PreviewBlock1.vpms')).toMatchSnapshot();
-        expect(previewBlocks?.get('Component1.vpms')).toMatchSnapshot();
+        expect(keys.length).toStrictEqual(6);
+        previewBlocks?.forEach((val) => {
+            expect(val).toMatchSnapshot();
+        });
     });
 
     test('component: custom preview template', () => {
@@ -77,8 +71,10 @@ export default SanDemo extends Component {
             exportType: 'component',
             template: customTemplate
         });
-        expect(previewBlocks?.get('PreviewBlock1.vpms')).toMatchSnapshot();
-        expect(previewBlocks?.get('PreviewBlock2.vpms')).toMatchSnapshot();
+
+        previewBlocks?.forEach((val) => {
+            expect(val).toMatchSnapshot();
+        });
     });
 
     test('component: custom preview template function', () => {
@@ -98,8 +94,9 @@ export default SanDemo extends Component {
                 return customTemplate;
             }
         });
-        expect(previewBlocks?.get('PreviewBlock1.vpms')).toMatchSnapshot();
-        expect(previewBlocks?.get('PreviewBlock2.vpms')).toMatchSnapshot();
+        previewBlocks?.forEach((val) => {
+            expect(val).toMatchSnapshot();
+        });
     });
 
     test('component: custom preview template with more source', () => {
@@ -117,8 +114,8 @@ export default SanDemo extends Component {
             alias: [],
             template: customTemplate
         });
-        expect(previewBlocks?.get('PreviewBlock1.vpms')).toMatchSnapshot();
-        expect(previewBlocks?.get('PreviewBlock2.vpms')).toMatchSnapshot();
-        expect(previewBlocks?.get('PreviewBlock3.vpms')).toMatchSnapshot();
+        previewBlocks?.forEach((val) => {
+            expect(val).toMatchSnapshot();
+        });
     });
 });
