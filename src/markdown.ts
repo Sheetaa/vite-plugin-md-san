@@ -66,7 +66,7 @@ function init(options: CompileOptions) {
     previewBlocks = new Map();
 }
 
-const md5 = (content: string) => crypto.createHash('md5').update(content).digest('hex');
+const md5 = (content: string) => crypto.createHash('md5').update(content).digest('hex').substring(0, 7);
 
 const renderer = {
     code(code: string, infostring: string) {
@@ -100,8 +100,9 @@ const renderer = {
                     type: 'css'
                 });
             });
-            const id = `${index}${md5(code)}`;
-            const entryTag = `preview-block-${id}`;
+            const codeMd5 = md5(code);
+            const id = `${index}_${codeMd5}`;
+            const entryTag = `preview-block-${index}-${codeMd5}`;
             const entryVar = `PreviewBlock${id}`;
             const mapKeyEntry = `${entryVar}.vpms`;
             const mapKeyComponent = `Component${id}.vpms`;
