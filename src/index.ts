@@ -45,9 +45,10 @@ export default function VitePluginMarkdownSan(options: PluginOptions): Plugin {
         // first: resolve
         resolveId(source) {
             if (previewFilter(source)) {
-                const id = source.startsWith(config.root)
-                    ? source : path.join(config.root, source);
-                return id;
+                if (source.startsWith(config.root) || source.startsWith('/')) {
+                    return source;
+                }
+                return path.join(config.root, source);
             }
         },
         // second: transform
