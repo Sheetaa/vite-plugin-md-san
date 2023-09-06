@@ -57,6 +57,32 @@ export default SanDemo extends Component {
         });
     });
 
+    test('component: import md with query', () => {
+        const relativePath = '../demo/src/markdown/san-include-preview.md';
+        let filepath = path.resolve(__dirname, relativePath);
+        const md = fs.readFileSync(filepath, {encoding: 'utf-8'});
+        filepath = path.join('/home/work/project', relativePath);
+
+        const {
+            entryComponent,
+            previewBlocks
+        } = compile(md, {
+            filepath,
+            exportType: 'component',
+            query: {
+                import: '',
+                platform: 'pc'
+            }
+        });
+        expect(entryComponent).toMatchSnapshot();
+
+        const keys = Array.from(previewBlocks || []).map(item => item[0]);
+        expect(keys.length).toStrictEqual(6);
+        previewBlocks?.forEach((val) => {
+            expect(val).toMatchSnapshot();
+        });
+    });
+
     test('component: custom preview template', () => {
         const relativePath = '../demo/src/markdown/san-include-preview.md';
         let filepath = path.resolve(__dirname, relativePath);

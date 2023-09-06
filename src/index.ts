@@ -30,7 +30,7 @@ let cachedPreviewBlocks: Map<string, Map<string, string>> = new Map();
 export default function VitePluginMarkdownSan(options: PluginOptions): Plugin {
 
     const filter = createFilter(/\.md\??/);
-    const previewFilter = createFilter(/\.vpms$/);
+    const previewFilter = createFilter(/\.vpms\??/);
     let transform: Transform;
 
     let config: ResolvedConfig;
@@ -72,13 +72,14 @@ export default function VitePluginMarkdownSan(options: PluginOptions): Plugin {
         load(id) {
             // example: /xxx/site/components/Tag/example.md.PreviewBlock1.vpms
             if (previewFilter(id)) {
+                const query = id.split('?').length > 1 && id.split('?')[1];
                 const idArray = id.split('/');
                 const filename = idArray.pop();
                 const matched = filename?.match(/([\w-]+\.md)\.([\w-]+\.vpms)/);
                 if (matched?.length === 3) {
                     const mdFilename = matched[1];
                     idArray.push(mdFilename);
-                    const originId = idArray.join('/');
+                    const originId = idArray.join('/') + (query ? `?${query}` : '');
                     const previewBlockName = matched[2];
                     return cachedPreviewBlocks.get(originId)?.get(previewBlockName);
                 }

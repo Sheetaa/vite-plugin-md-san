@@ -35,7 +35,8 @@ export function createTransform(options: TransformOption) {
                     filepath,
                     exportType: 'component',
                     alias,
-                    template: realOptions.template
+                    template: realOptions.template,
+                    query
                 });
                 return {
                     transformed: transformed || '',

@@ -586,6 +586,220 @@ export default class ComponentDemo extends Component {
 }"
 `;
 
+exports[`transform component: import md with query 1`] = `
+"import {Component} from 'san';
+import PreviewBlock1_2309c06 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock1_2309c06.vpms?import=&platform=pc';
+import PreviewBlock2_9f72491 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock2_9f72491.vpms?import=&platform=pc';
+import PreviewBlock3_5e6af89 from '/home/work/demo/src/markdown/san-include-preview.md.PreviewBlock3_5e6af89.vpms?import=&platform=pc';
+export default class ComponentDoc extends Component {
+    static template = \`<section class=\\"markdown\\"><h1 id=\\"export-md-as-san-component\\">export md as san component</h1>
+<preview-block-1-2309c06></preview-block-1-2309c06><preview-block-2-9f72491></preview-block-2-9f72491><preview-block-3-5e6af89></preview-block-3-5e6af89></section>\`;
+    static components = {
+        'preview-block-1-2309c06': PreviewBlock1_2309c06,
+		'preview-block-2-9f72491': PreviewBlock2_9f72491,
+		'preview-block-3-5e6af89': PreviewBlock3_5e6af89
+    };
+};
+"
+`;
+
+exports[`transform component: import md with query 2`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component1_2309c06.vpms?import=&platform=pc';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"1_2309c06\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-box-meta\\">
+                <h4>info text</h4>
+                {{ caption | raw}}
+            </section>
+            <section>
+                <h4>code</h4>
+                <div class=\\"highlight\\">
+                    <pre>
+                        <code class=\\"language-san\\">
+                            {{ code | raw }}
+                        </code>
+                    </pre>
+                </div>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            code: \`import {Component} from 'san';
+
+export default class ComponentDemo extends Component {
+    static template = &#96;
+        &lt;div>
+            &lt;button type=\\"button\\">First Button&lt;/button>
+        &lt;/div>
+    &#96;;
+}\`,
+            caption: \`first\`
+        }
+    }
+}
+"
+`;
+
+exports[`transform component: import md with query 3`] = `
+"import {Component} from 'san';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">First Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: import md with query 4`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component2_9f72491.vpms?import=&platform=pc';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"2_9f72491\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-box-meta\\">
+                <h4>info text</h4>
+                {{ caption | raw}}
+            </section>
+            <section>
+                <h4>code</h4>
+                <div class=\\"highlight\\">
+                    <pre>
+                        <code class=\\"language-san\\">
+                            {{ code | raw }}
+                        </code>
+                    </pre>
+                </div>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            code: \`import {Component} from 'san';
+
+export default class ComponentDemo extends Component {
+    static template = &#96;
+        &lt;div>
+            &lt;button type=\\"button\\">Second Button&lt;/button>
+        &lt;/div>
+    &#96;;
+}\`,
+            caption: \`second\`
+        }
+    }
+}
+"
+`;
+
+exports[`transform component: import md with query 5`] = `
+"import {Component} from 'san';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div>
+            <button type=\\"button\\">Second Button</button>
+        </div>
+    \`;
+}"
+`;
+
+exports[`transform component: import md with query 6`] = `
+"import {Component} from 'san';
+import CodePreview from '/home/work/demo/src/markdown/san-include-preview.md.Component3_5e6af89.vpms?import=&platform=pc';
+
+export default class PreviewBlock extends Component {
+
+    static trimWhitespace = 'all';
+
+    static template = \`
+        <section class=\\"code-box\\" id=\\"3_5e6af89\\">
+            <section class=\\"code-box-demo\\">
+                <h4>code preview</h4>
+                <code-preview></code-preview>
+            </section>
+            <section class=\\"code-box-meta\\">
+                <h4>info text</h4>
+                {{ caption | raw}}
+            </section>
+            <section>
+                <h4>code</h4>
+                <div class=\\"highlight\\">
+                    <pre>
+                        <code class=\\"language-san\\">
+                            {{ code | raw }}
+                        </code>
+                    </pre>
+                </div>
+            </section>
+        </section>
+    \`;
+
+    static components = {
+        'code-preview': CodePreview
+    };
+
+    initData() {
+        return {
+            code: \`import {Component} from 'san';
+import styles from '../index.module.less';
+
+export default class ComponentDemo extends Component {
+    static template = &#96;
+        &lt;div class=\\"\${styles.content}\\">
+            &lt;button type=\\"button\\">Third Button&lt;/button>
+        &lt;/div>
+    &#96;;
+}\`,
+            caption: \`third\`
+        }
+    }
+}
+"
+`;
+
+exports[`transform component: import md with query 7`] = `
+"import {Component} from 'san';
+import styles from '../index.module.less';
+
+export default class ComponentDemo extends Component {
+    static template = \`
+        <div class=\\"\${styles.content}\\">
+            <button type=\\"button\\">Third Button</button>
+        </div>
+    \`;
+}"
+`;
+
 exports[`transform html 1`] = `
 "<h1 id=\\"title\\">title</h1>
 <p>123

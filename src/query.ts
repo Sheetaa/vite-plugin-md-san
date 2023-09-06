@@ -1,15 +1,11 @@
-export interface MarkdownQuery {
-
-    /**
-     * @default 'component'
-     */
-    export: 'html' | 'component' | 'raw' | string;
-};
+export interface Query {
+    [index: string]: string
+}
 
 export interface RequestRes {
     filename: string;
     filepath: string;
-    query?: MarkdownQuery;
+    query?: Query;
 }
 
 export interface CodeLangRes {
@@ -28,17 +24,23 @@ export function parseRequest(id: string): RequestRes {
         };
     }
     const request = new URLSearchParams(rawQuery);
-    const query = {} as MarkdownQuery;
+    const query = {} as Query;
     request.forEach((value, name) => {
-        if (name === 'export') {
-            query[name] = value;
-        }
+        query[name] = value;
     });
     return {
         filename,
         filepath,
         query
     };
+}
+
+export function querystring(query: Query) {
+    const result = [];
+    for (let [key, value] of Object.entries(query)) {
+        result.push(`${key}=${value ? value : ''}`);
+    }
+    return result.join('&');
 }
 
 export function parseCodeLang(id: string): CodeLangRes {

@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import {marked} from 'marked';
-import {parseCodeLang} from './query';
+import {parseCodeLang, Query, querystring} from './query';
 
 type ExportType = 'html' | 'component';
 
@@ -26,7 +26,8 @@ interface TemplateData {
     caption?: string;
     sourceList: string;
     metadata: string;
-    filepath: string
+    filepath: string;
+    query?: string;
 }
 
 interface Alias {
@@ -45,6 +46,7 @@ interface CompileOptions {
     alias?: Alias[];
     exportType?: ExportType;
     template?: string | Function;
+    query?: Query;
 }
 
 const defaultTemplate = path.join(__dirname, './theme/default.template');
@@ -55,6 +57,7 @@ let index: number;
 let alias: Alias[];
 let previewBlocks: Map<string, string>;
 const components: ComponentSnippets[] = [];
+let query: Query;
 
 function init(options: CompileOptions) {
     file = options.filepath;
@@ -64,6 +67,7 @@ function init(options: CompileOptions) {
     alias = options.alias || [];
     components.splice(0, components.length);
     previewBlocks = new Map();
+    query = options.query || {};
 }
 
 const md5 = (content: string) => crypto.createHash('md5').update(content).digest('hex').substring(0, 7);
@@ -106,10 +110,12 @@ const renderer = {
             const entryVar = `PreviewBlock${id}`;
             const mapKeyEntry = `${entryVar}.vpms`;
             const mapKeyComponent = `Component${id}.vpms`;
+            const queryString = Object.keys(query).length
+                ? `?${querystring(query)}` : '';
             // /src/markdown/html.md.PreviewBlock1.vpms
-            const entryRequest = `${file}.${mapKeyEntry}`;
+            const entryRequest = `${file}.${mapKeyEntry}${queryString}`;
             // /src/markdown/html.md.Component1.vpms
-            const componentRequest = `${file}.${mapKeyComponent}`;
+            const componentRequest = `${file}.${mapKeyComponent}${queryString}`;
             components.push({
                 import: `import ${entryVar} from '${entryRequest}'`,
                 component: `'${entryTag}': ${entryVar}`
@@ -121,7 +127,8 @@ const renderer = {
                 componentRequest,
                 caption: codeLang.caption,
                 sourceList: JSON.stringify(sourceList),
-                metadata: JSON.stringify(codeLang)
+                metadata: JSON.stringify(codeLang),
+                query: JSON.stringify(query)
             }));
             previewBlocks.set(mapKeyComponent, code);
             index++;
