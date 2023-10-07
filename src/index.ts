@@ -45,30 +45,13 @@ export default function VitePluginMarkdownSan(options: PluginOptions): Plugin {
         // first: resolve
         resolveId(source) {
             if (previewFilter(source)) {
-                if (source.startsWith(config.root) || source.startsWith('/')) {
+                if (source.startsWith(config.root)) {
                     return source;
                 }
                 return path.join(config.root, source);
             }
         },
-        // second: transform
-        transform(raw, id) {
-            // filter file ending with .md
-            // example: /xxx/site/components/Tag/example.md
-            if (!filter(id) || previewFilter(id)) {
-                return;
-            }
-
-            const {
-                transformed,
-                attachment
-            } = transform(id, raw);
-            if (attachment && attachment.size) {
-                cachedPreviewBlocks.set(id, attachment);
-            }
-            return transformed;
-        },
-        // third: load
+        // second: load
         load(id) {
             // example: /xxx/site/components/Tag/example.md.PreviewBlock1.vpms
             if (previewFilter(id)) {
@@ -84,6 +67,23 @@ export default function VitePluginMarkdownSan(options: PluginOptions): Plugin {
                     return cachedPreviewBlocks.get(originId)?.get(previewBlockName);
                 }
             }
+        },
+        // third: transform
+        transform(raw, id) {
+            // filter file ending with .md
+            // example: /xxx/site/components/Tag/example.md
+            if (!filter(id) || previewFilter(id)) {
+                return;
+            }
+
+            const {
+                transformed,
+                attachment
+            } = transform(id, raw);
+            if (attachment && attachment.size) {
+                cachedPreviewBlocks.set(id, attachment);
+            }
+            return transformed;
         },
         async handleHotUpdate(ctx) {
             const {
